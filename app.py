@@ -1,34 +1,39 @@
 from flask import Flask, render_template, request
-from transformers import pipeline, set_seed
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
 
-generator = pipeline('text-generation', model='gpt2-medium')
-set_seed(42)
+# Load environment variables from .env
+load_dotenv()
 
+# Configure the Generative AI API
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# Initialize Flask app
 app = Flask(__name__)
 
-@app.route('/', methods=["GET", "POST"])
+# List and print available models (optional, for debugging)
+models = genai.list_models()
+for m in models:
+    print(f"Model: {m.name} | Supports: {m.supported_generation_methods}")
+
+# Use a valid supported model
+model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")  # You can also use "models/gemini-2.5-pro"
+
+@app.route("/", methods=["GET", "POST"])
 def index():
     story = ""
     if request.method == "POST":
-        user_prompt = request.form["prompt"]
-        prompt = f"Once upon a time, {user_prompt.strip().capitalize()}"
-
-        response = generator(prompt,
-                             max_length=250,
-                             num_return_sequences=1,
-                             temperature=0.9,
-                             top_p=0.95,
-                             do_sample=True,
-                             pad_token_id=50256)
-
-        generated = response[0]['generated_text']
-
-        if generated.lower().startswith(prompt.lower()):
-            story = generated[len(prompt):].strip().capitalize()
+        user_prompt = request.form.get("prompt", "").strip()
+        if user_prompt:
+            prompt = f"Once upon a time, {user_prompt.capitalize()}"
+            try:
+                response = model.generate_content(prompt)
+                story = response.text.strip()
+            except Exception as e:
+                story = f"❌ Error: {str(e)}"
         else:
-            story = generated.strip()
-
-        story = prompt + " " + story
+            story = "⚠️ Please enter a prompt."
 
     return render_template("index.html", story=story)
 
