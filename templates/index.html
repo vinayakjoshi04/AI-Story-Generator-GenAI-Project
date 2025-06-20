@@ -1,89 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AI Story Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
-            padding: 40px;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ AI Story Generator</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        h1 {
-            color: #2c3e50;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        form {
-            margin-top: 20px;
-        }
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        textarea {
-            width: 80%;
-            max-width: 800px;
-            height: 120px;
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            resize: vertical;
-        }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
 
-        button {
-            padding: 12px 25px;
-            font-size: 16px;
-            margin-top: 15px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-        #story {
-            margin-top: 40px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: slideDown 0.8s ease-out;
+    }
 
-        #story h2 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #fff, #e0e7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3);
+    }
 
-        #story p {
-            text-align: left;
-            white-space: pre-wrap;
-            font-size: 17px;
-            line-height: 1.6;
-            color: #333;
-        }
-    </style>
+    .header p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group label {
+      display: block;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.6);
+      z-index: 1;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 15px 45px 15px 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    select option {
+      background: #2d3436;
+      color: white;
+    }
+
+    textarea {
+      height: 120px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      color: white;
+      border: none;
+      padding: 18px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 30px rgba(238, 90, 36, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .generate-btn {
+      display: block;
+      margin: 30px auto 0;
+      width: fit-content;
+    }
+
+    .error {
+      background: rgba(255, 107, 107, 0.1);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      color: #ff6b6b;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-weight: 600;
+      display: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .story-container {
+      margin-top: 50px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: none;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .story-title {
+      color: #2d3436;
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 25px;
+      text-align: center;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .story-content {
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 30px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #2d3436;
+      white-space: pre-wrap;
+      font-family: 'Georgia', serif;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .download-form {
+      margin-top: 15px;
+      display: inline-block;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(45deg, #74b9ff, #0984e3);
+      box-shadow: 0 10px 30px rgba(116, 185, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      box-shadow: 0 15px 35px rgba(116, 185, 255, 0.4);
+    }
+
+    .btn-accent {
+      background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+      box-shadow: 0 10px 30px rgba(162, 155, 254, 0.3);
+    }
+
+    .btn-accent:hover {
+      box-shadow: 0 15px 35px rgba(162, 155, 254, 0.4);
+    }
+
+    .audio-player {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .audio-player audio {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2.5rem; }
+      .form-container { padding: 25px; }
+      .form-grid { grid-template-columns: 1fr; gap: 20px; }
+      .action-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 300px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>📝 AI Story Generator</h1>
-    <form method="POST">
-        <textarea name="prompt" placeholder="Enter your story prompt here..." required></textarea><br>
-        <button type="submit">Generate Story</button>
-    </form>
-
-    {% if story %}
-    <div id="story">
-        <h2>Generated Story:</h2>
-        <p>{{ story }}</p>
+  <div class="particles"></div>
+  
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-magic"></i> AI Story Generator</h1>
+      <p>Create magical stories with the power of artificial intelligence</p>
     </div>
-    {% endif %}
+
+    <div class="form-container">
+      <div class="form-grid">
+        <div class="input-group">
+          <label><i class="fas fa-robot"></i> AI Model</label>
+          <select id="modelSelect">
+            {% for model in models %}
+              <option value="{{ model }}">{{ model }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-theater-masks"></i> Genre</label>
+          <select id="genre">
+            <option value="Adventure">🏴‍☠️ Adventure</option>
+            <option value="Horror">👻 Horror</option>
+            <option value="Science Fiction">🚀 Science Fiction</option>
+            <option value="Fantasy">🧙‍♂️ Fantasy</option>
+            <option value="Romance">💕 Romance</option>
+            <option value="Mystery">🔍 Mystery</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-user"></i> Character Name</label>
+          <input id="characterName" type="text" placeholder="Enter character's name">
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-hat-wizard"></i> Character Type</label>
+          <input id="characterType" type="text" placeholder="Enter character type (wizard, detective, etc.)">
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-scroll"></i> Story Length</label>
+          <select id="length">
+            <option value="short">📄 Short (2–3 paragraphs)</option>
+            <option value="medium" selected>📖 Medium (5–7 paragraphs)</option>
+            <option value="long">📚 Long (10+ paragraphs)</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label><i class="fas fa-globe"></i> Language</label>
+          <select id="language">
+            <option value="English" selected>🇺🇸 English</option>
+            <option value="Hindi">🇮🇳 Hindi</option>
+            <option value="Spanish">🇪🇸 Spanish</option>
+            <option value="French">🇫🇷 French</option>
+            <option value="German">🇩🇪 German</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label><i class="fas fa-feather-alt"></i> Story Prompt</label>
+        <textarea id="promptInput" placeholder="Enter your story prompt..."></textarea>
+      </div>
+
+      <button class="btn generate-btn" onclick="generateStory()">
+        <i class="fas fa-wand-magic-sparkles"></i> Generate Story
+      </button>
+
+      <div class="error" id="errorBox"></div>
+    </div>
+
+    <div class="story-container" id="storyBox">
+      <h2 class="story-title" id="storyTitle"></h2>
+      <pre class="story-content" id="storyContent"></pre>
+
+      <form method="POST" action="/download" class="download-form">
+        <input type="hidden" name="title" id="downloadTitle">
+        <input type="hidden" name="story" id="downloadStory">
+        <button name="format" value="txt" class="btn btn-secondary">
+          <i class="fas fa-download"></i> ⬇️ Download TXT
+        </button>
+        <button name="format" value="pdf" class="btn btn-secondary">
+          <i class="fas fa-file-pdf"></i> ⬇️ Download PDF
+        </button>
+      </form>
+
+      <div class="action-buttons">
+        <button class="btn btn-accent" onclick="continueStory()">
+          <i class="fas fa-plus"></i> 🔁 Continue Story
+        </button>
+        <button class="btn btn-accent" onclick="playAudio()">
+          <i class="fas fa-volume-up"></i> 🔊 Listen to Story
+        </button>
+      </div>
+
+      <audio id="storyAudio" controls style="display:none; margin-top: 10px;"></audio>
+    </div>
+  </div>
+
+  <script>
+    function createParticles() {
+      const particlesContainer = document.querySelector('.particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    createParticles();
+
+    async function generateStory() {
+      const prompt = document.getElementById("promptInput").value.trim();
+      const model = document.getElementById("modelSelect").value;
+      const genre = document.getElementById("genre").value;
+      const characterName = document.getElementById("characterName").value.trim();
+      const characterType = document.getElementById("characterType").value.trim();
+      const length = document.getElementById("length").value;
+      const language = document.getElementById("language").value;
+
+      const errorBox = document.getElementById("errorBox");
+      const storyBox = document.getElementById("storyBox");
+      const storyTitle = document.getElementById("storyTitle");
+      const storyContent = document.getElementById("storyContent");
+      const downloadTitle = document.getElementById("downloadTitle");
+      const downloadStory = document.getElementById("downloadStory");
+      const storyAudio = document.getElementById("storyAudio");
+
+      errorBox.innerText = "";
+      storyBox.style.display = "none";
+      storyAudio.style.display = "none";
+      storyAudio.src = "";
+
+      if (!prompt) {
+        errorBox.innerText = "⚠️ Please enter a prompt.";
+        errorBox.style.display = "block";
+        return;
+      }
+
+      storyContent.innerText = "⏳ Generating story...";
+      storyBox.style.display = "block";
+
+      try {
+        const response = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt,
+            model_name: model,
+            genre,
+            character_name: characterName,
+            character_type: characterType,
+            length,
+            language
+          })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          storyTitle.innerText = data.title;
+          storyContent.innerText = data.story;
+          downloadTitle.value = data.title;
+          downloadStory.value = data.story;
+          window.scrollTo({ top: storyBox.offsetTop - 20, behavior: 'smooth' });
+        } else {
+          storyBox.style.display = "none";
+          errorBox.innerText = "❌ " + data.error;
+          errorBox.style.display = "block";
+        }
+      } catch (err) {
+        storyBox.style.display = "none";
+        errorBox.innerText = "❌ Something went wrong.";
+        errorBox.style.display = "block";
+      }
+    }
+
+    async function continueStory() {
+      const currentStory = document.getElementById("storyContent").innerText.trim();
+      const model = document.getElementById("modelSelect").value;
+
+      if (!currentStory) {
+        alert("Generate a story first.");
+        return;
+      }
+
+      document.getElementById("storyContent").innerText += "\n\n⏳ Generating continuation...";
+
+      try {
+        const response = await fetch("/continue", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ story: currentStory, model_name: model })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          const updated = currentStory + "\n\n" + data.continued_story;
+          document.getElementById("storyContent").innerText = updated;
+          document.getElementById("downloadStory").value = updated;
+        } else {
+          alert("❌ Error: " + data.error);
+        }
+      } catch (err) {
+        alert("❌ Something went wrong.");
+      }
+    }
+
+    async function playAudio() {
+      const story = document.getElementById("storyContent").innerText.trim();
+      const language = document.getElementById("language").value;
+      const storyAudio = document.getElementById("storyAudio");
+
+      if (!story) {
+        alert("Generate a story first.");
+        return;
+      }
+
+      try {
+        const response = await fetch("/speak", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ story, language })
+        });
+
+        const data = await response.json();
+        if (response.ok && data.audio_base64) {
+          const audioData = `data:audio/mpeg;base64,${data.audio_base64}`;
+          storyAudio.src = audioData;
+          storyAudio.style.display = "block";
+          storyAudio.play();
+        } else {
+          alert("❌ Error: " + (data.error || "Unable to play audio."));
+        }
+      } catch (err) {
+        alert("❌ Something went wrong with audio.");
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'scale(1)';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
