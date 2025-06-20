@@ -214,7 +214,7 @@ If you encounter any issues or have questions, please:
 
 1. Check the [Issues](https://github.com/yourusername/ai-story-generator/issues) page
 2. Create a new issue with detailed information
-3. Contact the maintainer at your-email@example.com
+3. Contact the maintainer at vinayakjoshi2004@gmail.com
 
 ---
 
