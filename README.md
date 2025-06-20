@@ -153,31 +153,22 @@ ai-story-generator/
 ## 📱 Screenshots
 
 ### 🏠 Homepage - Story Generation Interface
-![Homepage](screenshots/homepage.png)
-*Beautiful glassmorphic interface with animated particles and intuitive form controls*
+![Screenshot 2025-06-20 190715](https://github.com/user-attachments/assets/84a86a9e-f82e-4915-8d10-fd6f8290df48)
 
 ### ✨ Story Generation in Action
-![Story Generation](screenshots/story-generation.gif)
-*Real-time story generation with loading animations and smooth transitions*
+![Screenshot 2025-06-20 185846](https://github.com/user-attachments/assets/41f3ef07-03f4-4a4d-926a-b51b1dce1acc)
 
 ### 📖 Generated Story Display
-![Story Display](screenshots/story-display.png)
-*Clean story presentation with title, content, and action buttons*
+![Screenshot 2025-06-20 185932](https://github.com/user-attachments/assets/148a88b1-85fc-43ad-a511-de5015435ca1)
+
+![Screenshot 2025-06-20 185956](https://github.com/user-attachments/assets/35de4b1c-4595-445a-a37b-1965ba9579de)
+
+![Screenshot 2025-06-20 190014](https://github.com/user-attachments/assets/d4f217e1-dc4b-41e9-a6ca-99b003b04349)
+
+![Screenshot 2025-06-20 190039](https://github.com/user-attachments/assets/ad0996a6-fd2b-4844-9653-9319104f8281)
 
 ### 🎵 Audio Playback Feature
-![Audio Player](screenshots/audio-player.png)
-*Built-in audio player for text-to-speech functionality*
-
-### 📱 Mobile Responsive Design
-<div align="center">
-  <img src="screenshots/mobile-view.png" alt="Mobile View" width="300"/>
-</div>
-
-*Fully responsive design that works seamlessly on all devices*
-
-### 🎨 UI Components Showcase
-![UI Components](screenshots/ui-components.png)
-*Showcase of various UI elements including buttons, forms, and animations*
+![Screenshot 2025-06-20 190100](https://github.com/user-attachments/assets/f180de82-f83e-47ca-86de-ea27322e4203)
 
 ## 🤝 Contributing
 
@@ -189,7 +180,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📋 Roadmap
+## 📋 Future Roadmap
 
 - [ ] User authentication and story saving
 - [ ] Story sharing functionality
@@ -229,4 +220,4 @@ If you encounter any issues or have questions, please:
 
 ⭐ **If you found this project helpful, please give it a star!** ⭐
 
-Made with ❤️ by [Your Name](https://github.com/vinayakjoshi04)
+Made with ❤️ by [Vinayak Vivek Joshi](https://github.com/vinayakjoshi04)
