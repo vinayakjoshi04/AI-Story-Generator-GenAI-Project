@@ -137,8 +137,8 @@ ai-story-generator/
 3. **Generate & Enjoy**
    - Click "Generate Story" and watch the magic happen
    - Continue your story with the "Continue Story" button
-   - Listen to your story with text-to-speech
-   - Download in TXT or PDF format
+   - Listen to your story with text-to-speech (After Clicking on Listen to Story, it takes couple of minutes to convert to the audio, so wait for couple minutes and then it starts the audio.
+   - Download in TXT or PDF format, U can also download the mp3 audio.
 
 ## 🔌 API Endpoints
 
