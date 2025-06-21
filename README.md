@@ -158,6 +158,8 @@ ai-story-generator/
 ### ✨ Story Generation in Action
 ![Screenshot 2025-06-20 185846](https://github.com/user-attachments/assets/41f3ef07-03f4-4a4d-926a-b51b1dce1acc)
 
+![Screenshot 2025-06-20 202237](https://github.com/user-attachments/assets/7b1edec1-fe1d-4137-896a-17ed31647c6e)
+
 ### 📖 Generated Story Display
 ![Screenshot 2025-06-20 185932](https://github.com/user-attachments/assets/148a88b1-85fc-43ad-a511-de5015435ca1)
 
