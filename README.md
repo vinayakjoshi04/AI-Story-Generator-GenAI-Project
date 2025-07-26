@@ -2,9 +2,16 @@
 
 A beautiful, feature-rich web application that harnesses the power of Google's Gemini AI to create captivating stories based on your prompts. Built with Flask and featuring a stunning glassmorphic UI with animated particles.
 
+## 🚀 Live Demo
+
+**🌐 [Try it now - Live on Render!](https://ai-story-generator-genai-project.onrender.com)**
+
+[![Deploy Status](https://img.shields.io/badge/deploy-live-brightgreen.svg)](https://ai-story-generator-genai-project.onrender.com)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![Flask](https://img.shields.io/badge/flask-v2.0+-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+> 🎯 **Ready to create amazing stories?** Click the link above to start generating AI-powered stories instantly - no installation required!
 
 ## 🌟 Features
 
@@ -44,12 +51,17 @@ A beautiful, feature-rich web application that harnesses the power of Google's G
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Use the Live Demo (Recommended)
+Simply visit **[https://ai-story-generator-genai-project.onrender.com](https://ai-story-generator-genai-project.onrender.com)** and start creating stories immediately!
+
+### Option 2: Run Locally
+
+#### Prerequisites
 
 - Python 3.8 or higher
 - Google AI API key (Gemini)
 
-### Installation
+#### Installation
 
 1. **Clone the repository**
    ```bash
@@ -81,6 +93,20 @@ A beautiful, feature-rich web application that harnesses the power of Google's G
 
 6. **Open your browser**
    Navigate to `http://localhost:5000`
+
+## 🌐 Deployment
+
+This application is deployed on **Render** and automatically updates from the main branch.
+
+- **Live URL**: [https://ai-story-generator-genai-project.onrender.com](https://ai-story-generator-genai-project.onrender.com)
+- **Platform**: Render
+- **Auto-Deploy**: Enabled from main branch
+- **Status**: ✅ Live and running
+
+### Deployment Notes
+- The app may take 30-60 seconds to wake up from sleep on first visit (Render's free tier limitation)
+- All features are fully functional in the deployed version
+- HTTPS enabled with automatic SSL certificates
 
 ## 🛠️ Dependencies
 
@@ -165,7 +191,7 @@ ai-story-generator/
 
 ![Screenshot 2025-06-20 185956](https://github.com/user-attachments/assets/35de4b1c-4595-445a-a37b-1965ba9579de)
 
-![Screenshot 2025-06-20 190014](https://github.com/user-attachments/assets/d4f217e1-dc4b-41e9-a6ca-99b003b04349)
+![Screenshot 2025-06-20 190014](https://github.com/user-attachments/assets/d4f217e1-dc4b-41e9a6ca-99b003b04349)
 
 ![Screenshot 2025-06-20 190039](https://github.com/user-attachments/assets/ad0996a6-fd2b-4844-9653-9319104f8281)
 
@@ -197,6 +223,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 - Audio playback may not work in some browsers due to autoplay policies
 - PDF generation supports Latin-1 encoding (some special characters may not display correctly)
 - Story length is limited by the AI model's context window
+- First load may be slow due to Render's free tier cold start (30-60 seconds)
 
 ## 📄 License
 
@@ -208,6 +235,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Flask](https://flask.palletsprojects.com/) for the web framework
 - [gTTS](https://github.com/pndurette/gTTS) for text-to-speech functionality
 - [FPDF](https://github.com/PyFPDF/fpdf2) for PDF generation
+- [Render](https://render.com/) for free hosting and deployment
 - Font Awesome for beautiful icons
 
 ## 📞 Support
@@ -220,6 +248,7 @@ If you encounter any issues or have questions, please:
 
 ---
 
-⭐ **If you found this project helpful, please give it a star!** ⭐
+⭐ **If you found this project helpful, please give it a star!** ⭐  
+🚀 **Try the live demo**: [https://ai-story-generator-genai-project.onrender.com](https://ai-story-generator-genai-project.onrender.com)
 
 Made with ❤️ by [Vinayak Vivek Joshi](https://github.com/vinayakjoshi04)
